@@ -23,8 +23,653 @@ const GAME_VERSION='1.0.0';
 const PATCH_URL='';
 const REDEEM_CODES={'ASHEN2026':{item:'Keeper’s Lantern',hours:24},'VEYR-GIFT':{item:'Silver Charm',hours:48},'MYPRINCESS':{item:'A Handful of Roses',hours:24},'THEHEARTOFAPOET':{item:'The Heart of a Poet',hours:24}};
 const store=(()=>{try{const k='__ashen_test__';localStorage.setItem(k,k);localStorage.removeItem(k);return localStorage}catch(e){const m={};return{getItem:k=>Object.prototype.hasOwnProperty.call(m,k)?m[k]:null,setItem:(k,v)=>{m[k]=String(v)},removeItem:k=>{delete m[k]}}}})()c13
-const STORY={"start": "p1", "scenes": {"p1": {"chapter": "Prologue — The Bell Without a Tongue", "passages": [{"k": "n", "x": "The night King Edric IV died, every bell in the kingdom of Veyr fell silent."}, {"k": "n", "x": "Not one after another. All seven bells stopped at precisely the same moment."}, {"k": "n", "x": "Horses reared. Candles guttered. In the cathedral, priests abandoned their prayers when the great bronze bell refused to answer the rope."}, {"k": "t", "x": "Beneath the Royal Palace"}, {"k": "n", "x": "Behind a door that had not been opened in three hundred years, something knocked. Three times."}, {"k": "d", "who": "The Voice", "x": "“The seventh king is dead. Bring me the first.”"}, {"k": "n", "x": "Nobody heard it except Mara Venn."}], "next": "p2"}, "p2": {"chapter": "Prologue — The Bell Without a Tongue", "passages": [{"k": "n", "x": "At twenty-two, Mara had spent most of her life among the dead things of Veyr—not bodies, but words."}, {"k": "n", "x": "History was a patient creature. It never complained when neglected. It simply waited."}, {"k": "n", "x": "That evening, a royal seal arrived, carried by a messenger whose horse had collapsed before reaching the palace gates."}, {"k": "d", "who": "Royal Order", "x": "“By command of the Crown Council, the contents of Vault Nine are to be destroyed before sunrise. No copies are to be made. No questions are to be asked.”"}], "next": "p3"}, "p3": {"chapter": "Prologue — The Bell Without a Tongue", "passages": [{"k": "n", "x": "Vault Nine did not exist on any official map. Yet beneath Mara’s desk lay an old drawing showing a staircase descending farther than the palace foundations allowed."}, {"k": "n", "x": "She took a lantern and followed it."}, {"k": "t", "x": "Vault Nine"}, {"k": "n", "x": "The staircase ended at a black iron door. There was no lock—only a sentence carved into the stone."}, {"k": "d", "who": "Carved Inscription", "x": "“Let the truth remain buried, lest the living inherit the sins of the dead.”"}, {"k": "n", "x": "Mara touched the inscription. The door opened inward."}, {"k": "n", "x": "Inside waited a table, a silver knife, and a book bound in grey leather. Its cover bore a crown with seven broken points."}], "next": "p4", "fx": [["gain", "Grey-Leather Chronicle"], ["gain", "Silver Knife"]]}, "p4": {"chapter": "Prologue — The Bell Without a Tongue", "passages": [{"k": "n", "x": "The first page was written in a hand Mara recognised."}, {"k": "d", "who": "Elira Venn", "x": "“My dearest Mara, if you are reading this, then the king is dead, and I have failed to keep you safe.”"}, {"k": "n", "x": "Her mother had died when Mara was seven. Or so she had been told."}, {"k": "d", "who": "Elira Venn", "x": "“They will tell you that Veyr was founded by seven noble houses, united by the courage of the first king. They will tell you many things.”"}, {"k": "d", "who": "Elira Venn", "x": "“There was no first king.”"}], "next": "p5"}, "p5": {"chapter": "Prologue — The Bell Without a Tongue", "passages": [{"k": "n", "x": "Footsteps sounded behind her. Mara turned, reaching for the silver knife."}, {"k": "n", "x": "A young man stood in the doorway, drenched by rain that had not fallen inside the palace for weeks."}, {"k": "d", "who": "Stranger", "x": "“You have her eyes.”"}, {"k": "d", "who": "Mara", "x": "“Who are you?”"}, {"k": "d", "who": "Oren", "x": "“My name is Oren. And I’m the reason your mother died.”"}, {"k": "n", "x": "Above them, one of the seven bells rang—a single, broken note."}, {"k": "d", "who": "Oren", "x": "“That wasn’t supposed to happen yet.”"}], "next": "p6"}, "p6": {"chapter": "Prologue — The Bell Without a Tongue", "passages": [{"k": "n", "x": "Oren produced a small wooden token, blackened at the edges and stamped with the broken crown."}, {"k": "d", "who": "Oren", "x": "“Your mother didn’t die twenty years ago, Mara. She died three days from now.”"}, {"k": "n", "x": "The lantern went out. From behind the walls, a child began to sing."}, {"k": "d", "who": "The Child’s Song", "x": "“Seven bells for seven lies, / Seven graves where truth now lies, / When the final bell is torn, / The child of ash shall be reborn.”"}, {"k": "n", "x": "Then something on the other side of the door whispered Mara’s name."}], "next": "c1a", "fx": [["gain", "Blackened Wooden Token"]]}, "c1a": {"chapter": "Chapter One — The Keeper of Forgotten Things", "passages": [{"k": "t", "x": "Chapter One\nThe Keeper of Forgotten Things"}, {"k": "n", "x": "By sunrise, the kingdom had invented three explanations for the king’s death."}, {"k": "n", "x": "When Mara returned to the archive, Chancellor Halvek was waiting."}, {"k": "d", "who": "Chancellor Halvek", "x": "“Mara Venn. Your superior speaks highly of you.”"}, {"k": "d", "who": "Mara", "x": "“My superior is dead.”"}, {"k": "d", "who": "Chancellor Halvek", "x": "“One more thing. You are relieved of your duties. You will remain in your quarters until the Crown Council concludes its inquiry.”"}, {"k": "d", "who": "Chancellor Halvek", "x": "“Tell me, Mara. Did you enter Vault Nine?”"}], "choices": [{"x": "“No. I have never heard of Vault Nine.”", "next": "c1c", "hint": "Deny everything.", "fx": [["susp", 1], ["flag", "deniedVault"]]}, {"x": "“I followed an order. I found an empty room.”", "next": "c1c", "hint": "Admit little.", "fx": [["flag", "partialTruth"]]}, {"x": "“You sealed it. Why ask me?”", "next": "c1c", "hint": "Turn the question on him.", "fx": [["susp", 2], ["flag", "challengedHalvek"]]}, {"x": "“I found my mother’s writing there.”", "next": "c1c", "hint": "Reveal a dangerous truth.", "fx": [["trust", 1], ["susp", 1], ["flag", "revealedMother"]]}]}, "c1c": {"chapter": "Chapter One — The Keeper of Forgotten Things", "passages": [{"k": "n", "x": "Halvek studied her, expressionless."}, {"k": "d", "who": "Chancellor Halvek", "x": "“Go to your quarters. Do not leave. Do not return to the archive.”"}, {"k": "n", "x": "Night settled. Then came a soft knock at Mara’s window."}, {"k": "n", "x": "Oren stood on the narrow ledge, rain running down his face."}, {"k": "d", "who": "Oren", "x": "“They know you were there. Give me the chronicle. I can take it beyond the palace before sunrise.”"}], "choices": [{"x": "Give Oren the chronicle.", "next": "c2a", "hint": "Trust him.", "fx": [["trust", 2], ["flag", "gaveChronicle"], ["lose", "Grey-Leather Chronicle"]]}, {"x": "Refuse. “You said you were the reason she died.”", "next": "c2a", "hint": "Withhold the book.", "fx": [["trust", -1], ["flag", "keptChronicle"]]}, {"x": "Ask about the token and your mother’s pendant.", "next": "c2a", "hint": "Seek truth first.", "fx": [["trust", 1], ["flag", "askedAboutToken"]]}, {"x": "Send him away and hide the chronicle.", "next": "c2a", "hint": "Survive alone.", "fx": [["flag", "hidChronicle"], ["susp", 1]]}]}, "c2a": {"chapter": "Chapter Two — The Hour of Ash", "passages": [{"k": "t", "x": "Chapter Two\nThe Hour of Ash"}, {"k": "n", "x": "Before Mara could answer, torchlight flared in the corridor below."}, {"k": "d", "who": "Guard", "x": "“Open the door in the name of the Crown Council!”"}, {"k": "d", "who": "Oren", "x": "“They are not here for questions. The old servants’ way leads beneath the palace.”"}], "choices": [{"x": "Flee with Oren.", "next": "c2b", "hint": "Escape now.", "fx": [["trust", 1], ["flag", "fledWithOren"]]}, {"x": "Hide the chronicle and face the guards.", "next": "c2b", "hint": "Buy time.", "fx": [["susp", 1], ["flag", "facedGuards"]]}, {"x": "Demand the truth before moving.", "next": "c2b", "hint": "Truth before escape.", "fx": [["trust", 1], ["flag", "demandedTruth"]]}]}, "c2b": {"chapter": "Chapter Two — The Hour of Ash", "passages": [{"k": "n", "x": "They descended a shaft of wet stone and rusted rungs. Behind them, Mara’s door splintered."}, {"k": "d", "who": "Oren", "x": "“The bells are not bells. They are locks.”"}, {"k": "d", "who": "Mara", "x": "“Locks against what?”"}, {"k": "d", "who": "Oren", "x": "“Against the thing your kingdom calls the first king. There was no first king—only the First, and the lie that kept it buried.”"}], "next": "c2c"}, "c2c": {"chapter": "Chapter Two — The Hour of Ash", "passages": [{"k": "n", "x": "They reached a cistern where seven stone channels met beneath a dome carved with broken crowns."}, {"k": "d", "who": "Oren", "x": "“Seven houses. Seven lies. Seven bells. Each bell binds one part of the First.”"}, {"k": "d", "who": "Oren", "x": "“Your mother was a Keeper. She tried to stop the Council from renewing the binding.”"}], "next": "c2d"}, "c2d": {"chapter": "Chapter Two — The Hour of Ash", "passages": [{"k": "n", "x": "At the cistern’s edge lay a dead keeper, his hand clutching a sealed letter bearing the broken crown."}], "choices": [{"x": "Take the sealed letter.", "next": "c3a", "hint": "Evidence may save lives.", "fx": [["gain", "Sealed Keeper’s Letter"], ["flag", "tookLetter"]]}, {"x": "Leave it undisturbed.", "next": "c3a", "hint": "Respect the dead.", "fx": [["flag", "leftLetter"]]}]}, "c3a": {"chapter": "Chapter Three — The Houses That Lie", "passages": [{"k": "t", "x": "Chapter Three\nThe Houses That Lie"}, {"k": "n", "x": "They reached the closed Venn townhouse. In her mother’s old study, a clean rectangle in the dust marked a hidden panel."}, {"k": "d", "who": "Oren", "x": "“She kept her real work here.”"}], "next": "c3b"}, "c3b": {"chapter": "Chapter Three — The Houses That Lie", "passages": [{"k": "n", "x": "The panel held a ledger listing the seven noble houses of Veyr—and beside each name, a single word."}, {"k": "n", "x": "Ash. Debt. Silence. Hunger. Name. Grave. Crown."}, {"k": "d", "who": "Mara", "x": "“These aren’t houses. They’re prisons.”"}, {"k": "n", "x": "Mara’s pendant grew warm. Pressed to the ledger, it opened a compartment holding white chalk and a note in her mother’s hand."}, {"k": "d", "who": "Elira Venn", "x": "“Do not let them make you a keeper, Mara. Keepers do not protect the truth. They protect the story.”"}], "next": "c3c", "fx": [["gain", "House Ledger"], ["gain", "Bell-keeper’s Chalk"]]}, "c3c": {"chapter": "Chapter Three — The Houses That Lie", "passages": [{"k": "n", "x": "A knock struck the front door. Then another—harder."}, {"k": "d", "who": "Oren", "x": "“Halvek’s men. The ledger cannot fall into their hands.”"}], "choices": [{"x": "Burn the ledger.", "next": "c3d", "hint": "Destroy the evidence.", "fx": [["lose", "House Ledger"], ["flag", "burnedLedger"]]}, {"x": "Take it and escape through the back.", "next": "c3d", "hint": "Keep the proof.", "fx": [["flag", "keptLedger"]]}, {"x": "Leave it open as a trap.", "next": "c3d", "hint": "Mislead them.", "fx": [["flag", "trapLedger"], ["susp", 1]]}]}, "c3d": {"chapter": "Chapter Three — The Houses That Lie", "passages": [{"k": "n", "x": "They escaped through the coal cellar. In the alley waited a woman in the grey robes of the cathedral’s bell-keepers."}, {"k": "d", "who": "Sister Ilsa", "x": "“You are Elira’s daughter. I keep the first bell. I have waited twenty years for someone to ask why it stopped.”"}], "next": "c4a", "fx": [["flag", "metIlsa"]]}, "c4a": {"chapter": "Chapter Four — The First Bell", "passages": [{"k": "t", "x": "Chapter Four\nThe First Bell"}, {"k": "n", "x": "In the cathedral undercroft, the first bell hung silent, split by a hairline fracture."}, {"k": "d", "who": "Sister Ilsa", "x": "“People think the bells mark the hours. They mark the binding. When one breaks, a chain loosens.”"}, {"k": "d", "who": "Sister Ilsa", "x": "“It will break fully by midnight unless it is resealed.”"}], "next": "c4b"}, "c4b": {"chapter": "Chapter Four — The First Bell", "passages": [{"k": "n", "x": "Ilsa spread the chalk in a circle of seven points."}, {"k": "d", "who": "Sister Ilsa", "x": "“The seal requires a Keeper’s blood and word. You would be choosing to continue the lie.”"}], "choices": [{"x": "Help Ilsa reseal the bell.", "next": "c4c", "hint": "Preserve the binding.", "fx": [["flag", "helpedIlsa"], ["susp", -1]]}, {"x": "Refuse. “I will not inherit her lie.”", "next": "c4c", "hint": "Reject the binding.", "fx": [["trust", 1], ["flag", "refusedSeal"]]}, {"x": "Ask what happens if it breaks.", "next": "c4c", "hint": "Demand the truth.", "fx": [["flag", "askedBellTruth"]]}]}, "c4c": {"chapter": "Chapter Four — The First Bell", "passages": [{"k": "n", "x": "Before the rite finished, the fracture spread. The first bell tore from its beam."}, {"k": "n", "x": "For one moment Mara saw beneath the city: a vast shape, neither dead nor sleeping, turning slowly in the dark."}, {"k": "d", "who": "Oren", "x": "“One chain is loose.”"}, {"k": "d", "who": "Sister Ilsa", "x": "“And the Council will know.”"}], "next": "c4d", "fx": [["flag", "firstBellBroken"]]}, "c4d": {"chapter": "Chapter Four — The First Bell", "passages": [{"k": "n", "x": "Chancellor Halvek descended with six guards."}, {"k": "d", "who": "Chancellor Halvek", "x": "“So. The daughter of Elira Venn has finished what her mother began.”"}], "choices": [{"x": "“Tell me what the First is.”", "next": "c5a", "hint": "Force him to speak.", "fx": [["susp", 1], ["flag", "halvekQuestioned"]]}, {"x": "“Arrest me. Ilsa and Oren are innocent.”", "next": "c5a", "hint": "Protect your allies.", "fx": [["trust", 1], ["flag", "protectedAllies"]]}, {"x": "Run.", "next": "c5a", "hint": "Escape.", "fx": [["flag", "ranFromHalvek"]]}]}, "c5a": {"chapter": "Chapter Five — The Ashen Court", "passages": [{"k": "t", "x": "Chapter Five\nThe Ashen Court"}, {"k": "n", "x": "Guards took Mara to the Ashen Court, where the heads of the seven houses sat in a ring around a black stone table."}, {"k": "d", "who": "Halvek", "x": "“The first bell is broken. The binding weakens. And the Keeper’s daughter stands among us.”"}], "next": "c5b"}, "c5b": {"chapter": "Chapter Five — The Ashen Court", "passages": [{"k": "d", "who": "Lord Ashgrave", "x": "“If the First wakes, the city burns.”"}, {"k": "d", "who": "Lord Crowndeep", "x": "“Then the girl must be bound to the door, as her mother should have been.”"}, {"k": "n", "x": "If she still carried the House Ledger, its words rose in her mind: Ash. Debt. Silence. Hunger. Name. Grave. Crown.", "cond": {"op": "has", "item": "House Ledger"}}, {"k": "n", "x": "Without the ledger, Mara had only her mother’s words—and the broken crown stamped into her memory.", "cond": {"op": "nhas", "item": "House Ledger"}}, {"k": "d", "who": "Mara", "x": "“You are not protecting the kingdom. You are protecting a story.”", "cond": {"op": "nhas", "item": "House Ledger"}}], "next": "c5c"}, "c5c": {"chapter": "Chapter Five — The Ashen Court", "passages": [{"k": "n", "x": "Halvek dismissed the guards. His composure cracked into exhaustion."}, {"k": "d", "who": "Chancellor Halvek", "x": "“I was Elira’s friend. She asked me to help destroy the binding. I refused—then spent twenty years making certain no one else could try.”"}, {"k": "d", "who": "Chancellor Halvek", "x": "“The Council wants you bound to the door. I can delay them until dawn if you tell me what Elira found.”"}], "choices": [{"x": "Tell him about the First and the seven lies.", "next": "c6a", "hint": "Trust him.", "fx": [["trust", 1], ["flag", "toldHalvek"]]}, {"x": "Tell him nothing.", "next": "c6a", "hint": "Protect the truth.", "fx": [["susp", 1], ["flag", "silencedHalvek"]]}, {"x": "“Take me to her.”", "next": "c6a", "hint": "Demand your mother.", "fx": [["trust", 1], ["flag", "demandedElira"]]}]}, "c6a": {"chapter": "Chapter Six — The Road Beneath the Kingdom", "passages": [{"k": "t", "x": "Chapter Six\nThe Road Beneath the Kingdom"}, {"k": "n", "x": "Halvek took Mara to Vault Nine, and beyond it to stairs descending farther than any map allowed."}, {"k": "n", "x": "Oren followed, wounded. Ilsa carried a lantern and bell-rope."}, {"k": "d", "who": "Sister Ilsa", "x": "“The Door of Ash lies below. Beyond it, no Keeper has returned.”"}], "next": "c6b"}, "c6b": {"chapter": "Chapter Six — The Road Beneath the Kingdom", "passages": [{"k": "n", "x": "They passed broken crowns, shattered bells, and names scratched into stone by hands that had run out of light."}, {"k": "n", "x": "Beside the tunnel lay a cold camp: a grey cloak, a wooden bowl of rainwater, and fresh footprints in the ash."}, {"k": "d", "who": "Mara", "x": "“My mother’s cloak.”"}], "next": "c6c"}, "c6c": {"chapter": "Chapter Six — The Road Beneath the Kingdom", "passages": [{"k": "n", "x": "Two paths opened: fresh footprints, or an old Keeper’s sigil half-erased in the stone."}], "choices": [{"x": "Follow the footprints.", "next": "c6d", "hint": "Chase hope.", "fx": [["flag", "followedFootprints"]]}, {"x": "Follow the sigil.", "next": "c6d", "hint": "Trust the old path.", "fx": [["flag", "followedSigil"]]}, {"x": "Send Oren to scout.", "next": "c6d", "hint": "Protect him.", "fx": [["trust", 1], ["flag", "sentOren"]]}]}, "c6d": {"chapter": "Chapter Six — The Road Beneath the Kingdom", "passages": [{"k": "n", "x": "Both paths ended at a door of black glass set into living rock."}, {"k": "d", "who": "Elira Venn", "x": "“Mara. Do not open this alone.”"}, {"k": "n", "x": "The door was already opening."}], "next": "c7a"}, "c7a": {"chapter": "Chapter Seven — The Tomb of the First King", "passages": [{"k": "t", "x": "Chapter Seven\nThe Tomb of the First King"}, {"k": "n", "x": "Beyond it lay a cavern with an empty throne of black stone and seven broken bells half-buried in ash."}, {"k": "d", "who": "Ancient Inscription", "x": "“HERE LIES THE FIRST KING. HE WAS NEVER BORN. HE WILL NOT BE ALLOWED TO DIE.”"}], "next": "c7b"}, "c7b": {"chapter": "Chapter Seven — The Tomb of the First King", "passages": [{"k": "n", "x": "There had been no first king. The seven houses had invented him—a story strong enough to bind something older than their kingdom."}, {"k": "n", "x": "The bells were not memorials. They were chains."}, {"k": "n", "x": "The thing beneath Veyr was not a monster that had invaded the world. It was a prisoner the world had decided to forget."}], "next": "c7c"}, "c7c": {"chapter": "Chapter Seven — The Tomb of the First King", "passages": [{"k": "n", "x": "The ash rose into the shape of a man, crowned in broken bronze, its face smooth as a coin worn blank."}, {"k": "d", "who": "The First", "x": "“Keeper’s child. You know the story is a cage. Free me, and I will give you your mother.”"}], "next": "c7d"}, "c7d": {"chapter": "Chapter Seven — The Tomb of the First King", "passages": [{"k": "n", "x": "Oren drew the silver knife. Ilsa gripped her rope. Halvek stood pale at the tunnel mouth."}], "choices": [{"x": "“What happens to my mother if I free you?”", "next": "c8a", "hint": "Refuse the bargain for now.", "fx": [["trust", 1], ["flag", "questionedFirst"]]}, {"x": "“I will not free you.”", "next": "c8a", "hint": "Reject the First.", "fx": [["flag", "refusedFirst"]]}, {"x": "“Show me the truth first.”", "next": "c8a", "hint": "Demand proof.", "fx": [["flag", "demandedProof"]]}]}, "c8a": {"chapter": "Chapter Eight — The Woman Who Waited", "passages": [{"k": "t", "x": "Chapter Eight\nThe Woman Who Waited"}, {"k": "n", "x": "The ash parted, and a grey-cloaked woman stepped from the darkness: older than Mara remembered, but unmistakably her mother."}, {"k": "d", "who": "Mara", "x": "“Mama?”"}, {"k": "d", "who": "Elira Venn", "x": "“I had to let the world believe I died so the Council would stop hunting the truth.”"}], "next": "c8b"}, "c8b": {"chapter": "Chapter Eight — The Woman Who Waited", "passages": [{"k": "d", "who": "Elira Venn", "x": "“Oren is a Keeper from a future that has already happened. In his time, you opened this door alone, and the First used your grief to break the last bell.”"}, {"k": "d", "who": "Oren", "x": "“I am the reason your mother died because my coming here drew the Council to her.”"}], "next": "c8c"}, "c8c": {"chapter": "Chapter Eight — The Woman Who Waited", "passages": [{"k": "n", "x": "Elira placed the blackened token in Mara’s palm."}, {"k": "d", "who": "Elira Venn", "x": "“One bell remains unbroken: the bell that was never cast. If it rings, the story ends and the First wakes free.”"}, {"k": "d", "who": "Elira Venn", "x": "“Or you can become the next Keeper. Seal the door and carry the lie.”"}], "choices": [{"x": "“There has to be another way.”", "next": "c8d", "hint": "Reject both choices.", "fx": [["trust", 1], ["flag", "soughtThirdWay"]]}, {"x": "“I will seal the door.”", "next": "c8d", "hint": "Choose the kingdom.", "fx": [["flag", "choseSeal"]]}, {"x": "“Then we let it wake.”", "next": "c8d", "hint": "Choose the truth.", "fx": [["flag", "choseWake"]]}]}, "c8d": {"chapter": "Chapter Eight — The Woman Who Waited", "passages": [{"k": "n", "x": "Halvek’s guards entered the tomb, followed by the seven house-lords."}, {"k": "d", "who": "Chancellor Halvek", "x": "“Elira Venn, you are under arrest for treason against the founding story of Veyr.”"}], "choices": [{"x": "Stand with Elira.", "next": "c9a", "hint": "Defy the Council.", "fx": [["trust", 1], ["flag", "stoodWithElira"]]}, {"x": "Stand with Halvek.", "next": "c9a", "hint": "Preserve the binding.", "fx": [["susp", 1], ["flag", "stoodWithHalvek"]]}, {"x": "Step between both sides.", "next": "c9a", "hint": "Refuse violence.", "fx": [["flag", "stoodBetween"]]}]}, "c9a": {"chapter": "Chapter Nine — The Breaking of the Bells", "passages": [{"k": "t", "x": "Chapter Nine\nThe Breaking of the Bells"}, {"k": "n", "x": "Far above, the second bell broke. Ash fell like black snow."}, {"k": "d", "who": "Sister Ilsa", "x": "“When the seventh breaks, the Door of Ash will not matter.”"}, {"k": "d", "who": "Oren", "x": "“Cast the tenth bell. A bell made not to bind the First, but to name it.”"}], "next": "c9b"}, "c9b": {"chapter": "Chapter Nine — The Breaking of the Bells", "passages": [{"k": "d", "who": "The First", "x": "“You would give me a name? I have had many. Monster. God. King. None were mine.”"}, {"k": "n", "x": "Mara opened the chronicle and found her mother’s final page.", "cond": {"op": "has", "item": "Grey-Leather Chronicle"}}, {"k": "d", "who": "Elira Venn", "x": "“Ask it what it was called before Veyr learned to fear it.”", "cond": {"op": "has", "item": "Grey-Leather Chronicle"}}, {"k": "n", "x": "Without the chronicle, Mara had only the token and the First’s own words.", "cond": {"op": "nhas", "item": "Grey-Leather Chronicle"}}, {"k": "d", "who": "Mara", "x": "“What were you called before Veyr learned to fear you?”", "cond": {"op": "nhas", "item": "Grey-Leather Chronicle"}}], "next": "c9c"}, "c9c": {"chapter": "Chapter Nine — The Breaking of the Bells", "passages": [{"k": "d", "who": "The First", "x": "“I was called Vael. Before your houses built their thrones.”"}, {"k": "n", "x": "The name settled into the ash like a key entering a lock. Above, three more bells broke."}, {"k": "d", "who": "Sister Ilsa", "x": "“The tenth bell must be rung before the seventh falls!”"}], "next": "c9d"}, "c9d": {"chapter": "Chapter Nine — The Breaking of the Bells", "passages": [{"k": "n", "x": "Ilsa drove the bell-rope into the ash. Oren marked the circle with his blood. Elira placed the token at its centre."}, {"k": "n", "x": "Halvek set the royal seal beside it.", "cond": {"op": "susp_lt", "value": 3}}, {"k": "n", "x": "Halvek’s guards raised their weapons.", "cond": {"op": "susp_ge", "value": 3}}, {"k": "d", "who": "Elira Venn", "x": "“Then stop me properly this time, Halvek. Or help me.”", "cond": {"op": "susp_ge", "value": 3}}, {"k": "n", "x": "The ash trembled. The sixth bell broke."}], "next": "c10a"}, "c10a": {"chapter": "Chapter Ten — The Tenth Bell", "passages": [{"k": "t", "x": "Chapter Ten\nThe Tenth Bell"}, {"k": "n", "x": "The ash-bell stood complete: translucent, soundless, waiting."}, {"k": "d", "who": "The First", "x": "“Ring it, Mara Venn. Or bury me again.”"}], "choices": [{"x": "Follow the sound beneath the ash.", "next": "c11a", "hint": "The story continues.", "fx": [["flag", "beganChapterEleven"]]}, {"x": "Ring the tenth bell.", "next": "endTenth", "hint": "End the lie.", "fx": [["flag", "rangTenth"]]}, {"x": "Seal the Door of Ash forever.", "next": "endSeal", "hint": "Preserve the kingdom.", "fx": [["flag", "sealedDoor"]]}, {"x": "Burn the chronicle and walk away.", "next": "endAsh", "hint": "Abandon Veyr’s truth.", "fx": [["lose", "Grey-Leather Chronicle"], ["flag", "burnedChronicle"]]}, {"x": "Give the crown token to Elira.", "next": "endMother", "hint": "Return the choice to your mother.", "fx": [["lose", "Blackened Wooden Token"], ["flag", "gaveTokenToElira"]]}]}, "c11a": {"chapter": "Chapter Eleven — The Ash Between", "passages": [{"k": "t", "x": "Chapter Eleven\nThe Ash Between"}, {"k": "n", "x": "Mara did not ring the bell. Instead, she knelt and placed her ear to the floor."}, {"k": "d", "who": "The First", "x": "“You hear it, don’t you? The story beneath the story.”"}, {"k": "n", "x": "Far below the tomb, a second bell began to toll — deeper, older, and wrong."}, {"k": "d", "who": "Mara", "x": "“Then we go down.”"}], "choices": [{"x": "Descend toward the deeper bell.", "next": "c12a", "hint": "Enter the dark.", "fx": [["flag", "enteredTheDeep"]]}]}, 
+const STORY = {
+  start: "p1",
+  scenes: {
+    p1: {
+      chapter: "Prologue — The Bell Without a Tongue",
+      passages: [
+        { k: "n", x: "The night King Edric IV died, every bell in the kingdom of Veyr fell silent." },
+        { k: "n", x: "Not one after another. All seven bells stopped at precisely the same moment." },
+        { k: "n", x: "Horses reared. Candles guttered. In the cathedral, priests abandoned their prayers when the great bronze bell refused to answer the rope." },
+        { k: "t", x: "Beneath the Royal Palace" },
+        { k: "n", x: "Behind a door that had not been opened in three hundred years, something knocked. Three times." },
+        { k: "d", who: "The Voice", x: "“The seventh king is dead. Bring me the first.”" },
+        { k: "n", x: "Nobody heard it except Mara Venn." }
+      ],
+      next: "p2"
+    },
+    p2: {
+      chapter: "Prologue — The Bell Without a Tongue",
+      passages: [
+        { k: "n", x: "At twenty-two, Mara had spent most of her life among the dead things of Veyr—not bodies, but words." },
+        { k: "n", x: "History was a patient creature. It never complained when neglected. It simply waited." },
+        { k: "n", x: "That evening, a royal seal arrived, carried by a messenger whose horse had collapsed before reaching the palace gates." },
+        { k: "d", who: "Royal Order", x: "“By command of the Crown Council, the contents of Vault Nine are to be destroyed before sunrise. No copies are to be made. No questions are to be asked.”" }
+      ],
+      next: "p3"
+    },
+    p3: {
+      chapter: "Prologue — The Bell Without a Tongue",
+      passages: [
+        { k: "n", x: "Vault Nine did not exist on any official map. Yet beneath Mara’s desk lay an old drawing showing a staircase descending farther than the palace foundations allowed." },
+        { k: "n", x: "She took a lantern and followed it." },
+        { k: "t", x: "Vault Nine" },
+        { k: "n", x: "The staircase ended at a black iron door. There was no lock—only a sentence carved into the stone." },
+        { k: "d", who: "Carved Inscription", x: "“Let the truth remain buried, lest the living inherit the sins of the dead.”" },
+        { k: "n", x: "Mara touched the inscription. The door opened inward." },
+        { k: "n", x: "Inside waited a table, a silver knife, and a book bound in grey leather. Its cover bore a crown with seven broken points." }
+      ],
+      next: "p4",
+      fx: [["gain", "Grey-Leather Chronicle"], ["gain", "Silver Knife"]]
+    },
+    p4: {
+      chapter: "Prologue — The Bell Without a Tongue",
+      passages: [
+        { k: "n", x: "The first page was written in a hand Mara recognised." },
+        { k: "d", who: "Elira Venn", x: "“My dearest Mara, if you are reading this, then the king is dead, and I have failed to keep you safe.”" },
+        { k: "n", x: "Her mother had died when Mara was seven. Or so she had been told." },
+        { k: "d", who: "Elira Venn", x: "“They will tell you that Veyr was founded by seven noble houses, united by the courage of the first king. They will tell you many things.”" },
+        { k: "d", who: "Elira Venn", x: "“There was no first king.”" }
+      ],
+      next: "p5"
+    },
+    p5: {
+      chapter: "Prologue — The Bell Without a Tongue",
+      passages: [
+        { k: "n", x: "Footsteps sounded behind her. Mara turned, reaching for the silver knife." },
+        { k: "n", x: "A young man stood in the doorway, drenched by rain that had not fallen inside the palace for weeks." },
+        { k: "d", who: "Stranger", x: "“You have her eyes.”" },
+        { k: "d", who: "Mara", x: "“Who are you?”" },
+        { k: "d", who: "Oren", x: "“My name is Oren. And I’m the reason your mother died.”" },
+        { k: "n", x: "Above them, one of the seven bells rang—a single, broken note." },
+        { k: "d", who: "Oren", x: "“That wasn’t supposed to happen yet.”" }
+      ],
+      next: "p6"
+    },
+    p6: {
+      chapter: "Prologue — The Bell Without a Tongue",
+      passages: [
+        { k: "n", x: "Oren produced a small wooden token, blackened at the edges and stamped with the broken crown." },
+        { k: "d", who: "Oren", x: "“Your mother didn’t die twenty years ago, Mara. She died three days from now.”" },
+        { k: "n", x: "The lantern went out. From behind the walls, a child began to sing." },
+        { k: "d", who: "The Child’s Song", x: "“Seven bells for seven lies, / Seven graves where truth now lies, / When the final bell is torn, / The child of ash shall be reborn.”" },
+        { k: "n", x: "Then something on the other side of the door whispered Mara’s name." }
+      ],
+      next: "c1a",
+      fx: [["gain", "Blackened Wooden Token"]]
+    },
+    c1a: {
+      chapter: "Chapter One — The Keeper of Forgotten Things",
+      passages: [
+        { k: "t", x: "Chapter One\nThe Keeper of Forgotten Things" },
+        { k: "n", x: "By sunrise, the kingdom had invented three explanations for the king’s death." },
+        { k: "n", x: "When Mara returned to the archive, Chancellor Halvek was waiting." },
+        { k: "d", who: "Chancellor Halvek", x: "“Mara Venn. Your superior speaks highly of you.”" },
+        { k: "d", who: "Mara", x: "“My superior is dead.”" },
+        { k: "d", who: "Chancellor Halvek", x: "“One more thing. You are relieved of your duties. You will remain in your quarters until the Crown Council concludes its inquiry.”" },
+        { k: "d", who: "Chancellor Halvek", x: "“Tell me, Mara. Did you enter Vault Nine?”" }
+      ],
+      choices: [
+        { x: "“No. I have never heard of Vault Nine.”", next: "c1c", hint: "Deny everything.", fx: [["susp", 1], ["flag", "deniedVault"]] },
+        { x: "“I followed an order. I found an empty room.”", next: "c1c", hint: "Admit little.", fx: [["flag", "partialTruth"]] },
+        { x: "“You sealed it. Why ask me?”", next: "c1c", hint: "Turn the question on him.", fx: [["susp", 2], ["flag", "challengedHalvek"]] },
+        { x: "“I found my mother’s writing there.”", next: "c1c", hint: "Reveal a dangerous truth.", fx: [["trust", 1], ["susp", 1], ["flag", "revealedMother"]] }
+      ]
+    },
+    c1c: {
+      chapter: "Chapter One — The Keeper of Forgotten Things",
+      passages: [
+        { k: "n", x: "Halvek studied her, expressionless." },
+        { k: "d", who: "Chancellor Halvek", x: "“Go to your quarters. Do not leave. Do not return to the archive.”" },
+        { k: "n", x: "Night settled. Then came a soft knock at Mara’s window." },
+        { k: "n", x: "Oren stood on the narrow ledge, rain running down his face." },
+        { k: "d", who: "Oren", x: "“They know you were there. Give me the chronicle. I can take it beyond the palace before sunrise.”" }
+      ],
+      choices: [
+        { x: "Give Oren the chronicle.", next: "c2a", hint: "Trust him.", fx: [["trust", 2], ["flag", "gaveChronicle"], ["lose", "Grey-Leather Chronicle"]] },
+        { x: "Refuse. “You said you were the reason she died.”", next: "c2a", hint: "Withhold the book.", fx: [["trust", -1], ["flag", "keptChronicle"]] },
+        { x: "Ask about the token and your mother’s pendant.", next: "c2a", hint: "Seek truth first.", fx: [["trust", 1], ["flag", "askedAboutToken"]] },
+        { x: "Send him away and hide the chronicle.", next: "c2a", hint: "Survive alone.", fx: [["flag", "hidChronicle"], ["susp", 1]] }
+      ]
+    },
+    c2a: {
+      chapter: "Chapter Two — The Hour of Ash",
+      passages: [
+        { k: "t", x: "Chapter Two\nThe Hour of Ash" },
+        { k: "n", x: "Before Mara could answer, torchlight flared in the corridor below." },
+        { k: "d", who: "Guard", x: "“Open the door in the name of the Crown Council!”" },
+        { k: "d", who: "Oren", x: "“They are not here for questions. The old servants’ way leads beneath the palace.”" }
+      ],
+      choices: [
+        { x: "Flee with Oren.", next: "c2b", hint: "Escape now.", fx: [["trust", 1], ["flag", "fledWithOren"]] },
+        { x: "Hide the chronicle and face the guards.", next: "c2b", hint: "Buy time.", fx: [["susp", 1], ["flag", "facedGuards"]] },
+        { x: "Demand the truth before moving.", next: "c2b", hint: "Truth before escape.", fx: [["trust", 1], ["flag", "demandedTruth"]] }
+      ]
+    },
+    c2b: {
+      chapter: "Chapter Two — The Hour of Ash",
+      passages: [
+        { k: "n", x: "They descended a shaft of wet stone and rusted rungs. Behind them, Mara’s door splintered." },
+        { k: "d", who: "Oren", x: "“The bells are not bells. They are locks.”" },
+        { k: "d", who: "Mara", x: "“Locks against what?”" },
+        { k: "d", who: "Oren", x: "“Against the thing your kingdom calls the first king. There was no first king—only the First, and the lie that kept it buried.”" }
+      ],
+      next: "c2c"
+    },
+    c2c: {
+      chapter: "Chapter Two — The Hour of Ash",
+      passages: [
+        { k: "n", x: "They reached a cistern where seven stone channels met beneath a dome carved with broken crowns." },
+        { k: "d", who: "Oren", x: "“Seven houses. Seven lies. Seven bells. Each bell binds one part of the First.”" },
+        { k: "d", who: "Oren", x: "“Your mother was a Keeper. She tried to stop the Council from renewing the binding.”" }
+      ],
+      next: "c2d"
+    },
+    c2d: {
+      chapter: "Chapter Two — The Hour of Ash",
+      passages: [
+        { k: "n", x: "At the cistern’s edge lay a dead keeper, his hand clutching a sealed letter bearing the broken crown." }
+      ],
+      choices: [
+        { x: "Take the sealed letter.", next: "c3a", hint: "Evidence may save lives.", fx: [["gain", "Sealed Keeper’s Letter"], ["flag", "tookLetter"]] },
+        { x: "Leave it undisturbed.", next: "c3a", hint: "Respect the dead.", fx: [["flag", "leftLetter"]] }
+      ]
+    },
+    c3a: {
+      chapter: "Chapter Three — The Houses That Lie",
+      passages: [
+        { k: "t", x: "Chapter Three\nThe Houses That Lie" },
+        { k: "n", x: "They reached the closed Venn townhouse. In her mother’s old study, a clean rectangle in the dust marked a hidden panel." },
+        { k: "d", who: "Oren", x: "“She kept her real work here.”" }
+      ],
+      next: "c3b"
+    },
+    c3b: {
+      chapter: "Chapter Three — The Houses That Lie",
+      passages: [
+        { k: "n", x: "The panel held a ledger listing the seven noble houses of Veyr—and beside each name, a single word." },
+        { k: "n", x: "Ash. Debt. Silence. Hunger. Name. Grave. Crown." },
+        { k: "d", who: "Mara", x: "“These aren’t houses. They’re prisons.”" },
+        { k: "n", x: "Mara’s pendant grew warm. Pressed to the ledger, it opened a compartment holding white chalk and a note in her mother’s hand." },
+        { k: "d", who: "Elira Venn", x: "“Do not let them make you a keeper, Mara. Keepers do not protect the truth. They protect the story.”" }
+      ],
+      next: "c3c",
+      fx: [["gain", "House Ledger"], ["gain", "Bell-keeper’s Chalk"]]
+    },
+    c3c: {
+      chapter: "Chapter Three — The Houses That Lie",
+      passages: [
+        { k: "n", x: "A knock struck the front door. Then another—harder." },
+        { k: "d", who: "Oren", x: "“Halvek’s men. The ledger cannot fall into their hands.”" }
+      ],
+      choices: [
+        { x: "Burn the ledger.", next: "c3d", hint: "Destroy the evidence.", fx: [["lose", "House Ledger"], ["flag", "burnedLedger"]] },
+        { x: "Take it and escape through the back.", next: "c3d", hint: "Keep the proof.", fx: [["flag", "keptLedger"]] },
+        { x: "Leave it open as a trap.", next: "c3d", hint: "Mislead them.", fx: [["flag", "trapLedger"], ["susp", 1]] }
+      ]
+    },
+    c3d: {
+      chapter: "Chapter Three — The Houses That Lie",
+      passages: [
+        { k: "n", x: "They escaped through the coal cellar. In the alley waited a woman in the grey robes of the cathedral’s bell-keepers." },
+        { k: "d", who: "Sister Ilsa", x: "“You are Elira’s daughter. I keep the first bell. I have waited twenty years for someone to ask why it stopped.”" }
+      ],
+      next: "c4a",
+      fx: [["flag", "metIlsa"]]
+    },
+    c4a: {
+      chapter: "Chapter Four — The First Bell",
+      passages: [
+        { k: "t", x: "Chapter Four\nThe First Bell" },
+        { k: "n", x: "In the cathedral undercroft, the first bell hung silent, split by a hairline fracture." },
+        { k: "d", who: "Sister Ilsa", x: "“People think the bells mark the hours. They mark the binding. When one breaks, a chain loosens.”" },
+        { k: "d", who: "Sister Ilsa", x: "“It will break fully by midnight unless it is resealed.”" }
+      ],
+      next: "c4b"
+    },
+    c4b: {
+      chapter: "Chapter Four — The First Bell",
+      passages: [
+        { k: "n", x: "Ilsa spread the chalk in a circle of seven points." },
+        { k: "d", who: "Sister Ilsa", x: "“The seal requires a Keeper’s blood and word. You would be choosing to continue the lie.”" }
+      ],
+      choices: [
+        { x: "Help Ilsa reseal the bell.", next: "c4c", hint: "Preserve the binding.", fx: [["flag", "helpedIlsa"], ["susp", -1]] },
+        { x: "Refuse. “I will not inherit her lie.”", next: "c4c", hint: "Reject the binding.", fx: [["trust", 1], ["flag", "refusedSeal"]] },
+        { x: "Ask what happens if it breaks.", next: "c4c", hint: "Demand the truth.", fx: [["flag", "askedBellTruth"]] }
+      ]
+    },
+    c4c: {
+      chapter: "Chapter Four — The First Bell",
+      passages: [
+        { k: "n", x: "Before the rite finished, the fracture spread. The first bell tore from its beam." },
+        { k: "n", x: "For one moment Mara saw beneath the city: a vast shape, neither dead nor sleeping, turning slowly in the dark." },
+        { k: "d", who: "Oren", x: "“One chain is loose.”" },
+        { k: "d", who: "Sister Ilsa", x: "“And the Council will know.”" }
+      ],
+      next: "c4d",
+      fx: [["flag", "firstBellBroken"]]
+    },
+    c4d: {
+      chapter: "Chapter Four — The First Bell",
+      passages: [
+        { k: "n", x: "Chancellor Halvek descended with six guards." },
+        { k: "d", who: "Chancellor Halvek", x: "“So. The daughter of Elira Venn has finished what her mother began.”" }
+      ],
+      choices: [
+        { x: "“Tell me what the First is.”", next: "c5a", hint: "Force him to speak.", fx: [["susp", 1], ["flag", "halvekQuestioned"]] },
+        { x: "“Arrest me. Ilsa and Oren are innocent.”", next: "c5a", hint: "Protect your allies.", fx: [["trust", 1], ["flag", "protectedAllies"]] },
+        { x: "Run.", next: "c5a", hint: "Escape.", fx: [["flag", "ranFromHalvek"]] }
+      ]
+    },
+    c5a: {
+      chapter: "Chapter Five — The Ashen Court",
+      passages: [
+        { k: "t", x: "Chapter Five\nThe Ashen Court" },
+        { k: "n", x: "Guards took Mara to the Ashen Court, where the heads of the seven houses sat in a ring around a black stone table." },
+        { k: "d", who: "Halvek", x: "“The first bell is broken. The binding weakens. And the Keeper’s daughter stands among us.”" }
+      ],
+      next: "c5b"
+    },
+    c5b: {
+      chapter: "Chapter Five — The Ashen Court",
+      passages: [
+        { k: "d", who: "Lord Ashgrave", x: "“If the First wakes, the city burns.”" },
+        { k: "d", who: "Lord Crowndeep", x: "“Then the girl must be bound to the door, as her mother should have been.”" },
+        { k: "n", x: "If she still carried the House Ledger, its words rose in her mind: Ash. Debt. Silence. Hunger. Name. Grave. Crown.", cond: { op: "has", item: "House Ledger" } },
+        { k: "n", x: "Without the ledger, Mara had only her mother’s words—and the broken crown stamped into her memory.", cond: { op: "nhas", item: "House Ledger" } },
+        { k: "d", who: "Mara", x: "“You are not protecting the kingdom. You are protecting a story.”", cond: { op: "nhas", item: "House Ledger" } }
+      ],
+      next: "c5c"
+    },
+    c5c: {
+      chapter: "Chapter Five — The Ashen Court",
+      passages: [
+        { k: "n", x: "Halvek dismissed the guards. His composure cracked into exhaustion." },
+        { k: "d", who: "Chancellor Halvek", x: "“I was Elira’s friend. She asked me to help destroy the binding. I refused—then spent twenty years making certain no one else could try.”" },
+        { k: "d", who: "Chancellor Halvek", x: "“The Council wants you bound to the door. I can delay them until dawn if you tell me what Elira found.”" }
+      ],
+      choices: [
+        { x: "Tell him about the First and the seven lies.", next: "c6a", hint: "Trust him.", fx: [["trust", 1], ["flag", "toldHalvek"]] },
+        { x: "Tell him nothing.", next: "c6a", hint: "Protect the truth.", fx: [["susp", 1], ["flag", "silencedHalvek"]] },
+        { x: "“Take me to her.”", next: "c6a", hint: "Demand your mother.", fx: [["trust", 1], ["flag", "demandedElira"]] }
+      ]
+    },
+    c6a: {
+      chapter: "Chapter Six — The Road Beneath the Kingdom",
+      passages: [
+        { k: "t", x: "Chapter Six\nThe Road Beneath the Kingdom" },
+        { k: "n", x: "Halvek took Mara to Vault Nine, and beyond it to stairs descending farther than any map allowed." },
+        { k: "n", x: "Oren followed, wounded. Ilsa carried a lantern and bell-rope." },
+        { k: "d", who: "Sister Ilsa", x: "“The Door of Ash lies below. Beyond it, no Keeper has returned.”" }
+      ],
+      next: "c6b"
+    },
+    c6b: {
+      chapter: "Chapter Six — The Road Beneath the Kingdom",
+      passages: [
+        { k: "n", x: "They passed broken crowns, shattered bells, and names scratched into stone by hands that had run out of light." },
+        { k: "n", x: "Beside the tunnel lay a cold camp: a grey cloak, a wooden bowl of rainwater, and fresh footprints in the ash." },
+        { k: "d", who: "Mara", x: "“My mother’s cloak.”" }
+      ],
+      next: "c6c"
+    },
+    c6c: {
+      chapter: "Chapter Six — The Road Beneath the Kingdom",
+      passages: [
+        { k: "n", x: "Two paths opened: fresh footprints, or an old Keeper’s sigil half-erased in the stone." }
+      ],
+      choices: [
+        { x: "Follow the footprints.", next: "c6d", hint: "Chase hope.", fx: [["flag", "followedFootprints"]] },
+        { x: "Follow the sigil.", next: "c6d", hint: "Trust the old path.", fx: [["flag", "followedSigil"]] },
+        { x: "Send Oren to scout.", next: "c6d", hint: "Protect him.", fx: [["trust", 1], ["flag", "sentOren"]] }
+      ]
+    },
+    c6d: {
+      chapter: "Chapter Six — The Road Beneath the Kingdom",
+      passages: [
+        { k: "n", x: "Both paths ended at a door of black glass set into living rock." },
+        { k: "d", who: "Elira Venn", x: "“Mara. Do not open this alone.”" },
+        { k: "n", x: "The door was already opening." }
+      ],
+      next: "c7a"
+    },
+    c7a: {
+      chapter: "Chapter Seven — The Tomb of the First King",
+      passages: [
+        { k: "t", x: "Chapter Seven\nThe Tomb of the First King" },
+        { k: "n", x: "Beyond it lay a cavern with an empty throne of black stone and seven broken bells half-buried in ash." },
+        { k: "d", who: "Ancient Inscription", x: "“HERE LIES THE FIRST KING. HE WAS NEVER BORN. HE WILL NOT BE ALLOWED TO DIE.”" }
+      ],
+      next: "c7b"
+    },
+    c7b: {
+      chapter: "Chapter Seven — The Tomb of the First King",
+      passages: [
+        { k: "n", x: "There had been no first king. The seven houses had invented him—a story strong enough to bind something older than their kingdom." },
+        { k: "n", x: "The bells were not memorials. They were chains." },
+        { k: "n", x: "The thing beneath Veyr was not a monster that had invaded the world. It was a prisoner the world had decided to forget." }
+      ],
+      next: "c7c"
+    },
+    c7c: {
+      chapter: "Chapter Seven — The Tomb of the First King",
+      passages: [
+        { k: "n", x: "The ash rose into the shape of a man, crowned in broken bronze, its face smooth as a coin worn blank." },
+        { k: "d", who: "The First", x: "“Keeper’s child. You know the story is a cage. Free me, and I will give you your mother.”" }
+      ],
+      next: "c7d"
+    },
+    c7d: {
+      chapter: "Chapter Seven — The Tomb of the First King",
+      passages: [
+        { k: "n", x: "Oren drew the silver knife. Ilsa gripped her rope. Halvek stood pale at the tunnel mouth." }
+      ],
+      choices: [
+        { x: "“What happens to my mother if I free you?”", next: "c8a", hint: "Refuse the bargain for now.", fx: [["trust", 1], ["flag", "questionedFirst"]] },
+        { x: "“I will not free you.”", next: "c8a", hint: "Reject the First.", fx: [["flag", "refusedFirst"]] },
+        { x: "“Show me the truth first.”", next: "c8a", hint: "Demand proof.", fx: [["flag", "demandedProof"]] }
+      ]
+    },
+    c8a: {
+      chapter: "Chapter Eight — The Woman Who Waited",
+      passages: [
+        { k: "t", x: "Chapter Eight\nThe Woman Who Waited" },
+        { k: "n", x: "The ash parted, and a grey-cloaked woman stepped from the darkness: older than Mara remembered, but unmistakably her mother." },
+        { k: "d", who: "Mara", x: "“Mama?”" },
+        { k: "d", who: "Elira Venn", x: "“I had to let the world believe I died so the Council would stop hunting the truth.”" }
+      ],
+      next: "c8b"
+    },
+    c8b: {
+      chapter: "Chapter Eight — The Woman Who Waited",
+      passages: [
+        { k: "d", who: "Elira Venn", x: "“Oren is a Keeper from a future that has already happened. In his time, you opened this door alone, and the First used your grief to break the last bell.”" },
+        { k: "d", who: "Oren", x: "“I am the reason your mother died because my coming here drew the Council to her.”" }
+      ],
+      next: "c8c"
+    },
+    c8c: {
+      chapter: "Chapter Eight — The Woman Who Waited",
+      passages: [
+        { k: "n", x: "Elira placed the blackened token in Mara’s palm." },
+        { k: "d", who: "Elira Venn", x: "“One bell remains unbroken: the bell that was never cast. If it rings, the story ends and the First wakes free.”" },
+        { k: "d", who: "Elira Venn", x: "“Or you can become the next Keeper. Seal the door and carry the lie.”" }
+      ],
+      choices: [
+        { x: "“There has to be another way.”", next: "c8d", hint: "Reject both choices.", fx: [["trust", 1], ["flag", "soughtThirdWay"]] },
+        { x: "“I will seal the door.”", next: "c8d", hint: "Choose the kingdom.", fx: [["flag", "choseSeal"]] },
+        { x: "“Then we let it wake.”", next: "c8d", hint: "Choose the truth.", fx: [["flag", "choseWake"]] }
+      ]
+    },
+    c8d: {
+      chapter: "Chapter Eight — The Woman Who Waited",
+      passages: [
+        { k: "n", x: "Halvek’s guards entered the tomb, followed by the seven house-lords." },
+        { k: "d", who: "Chancellor Halvek", x: "“Elira Venn, you are under arrest for treason against the founding story of Veyr.”" }
+      ],
+      choices: [
+        { x: "Stand with Elira.", next: "c9a", hint: "Defy the Council.", fx: [["trust", 1], ["flag", "stoodWithElira"]] },
+        { x: "Stand with Halvek.", next: "c9a", hint: "Preserve the binding.", fx: [["susp", 1], ["flag", "stoodWithHalvek"]] },
+        { x: "Step between both sides.", next: "c9a", hint: "Refuse violence.", fx: [["flag", "stoodBetween"]] }
+      ]
+    },
+    c9a: {
+      chapter: "Chapter Nine — The Breaking of the Bells",
+      passages: [
+        { k: "t", x: "Chapter Nine\nThe Breaking of the Bells" },
+        { k: "n", x: "Far above, the second bell broke. Ash fell like black snow." },
+        { k: "d", who: "Sister Ilsa", x: "“When the seventh breaks, the Door of Ash will not matter.”" },
+        { k: "d", who: "Oren", x: "“Cast the tenth bell. A bell made not to bind the First, but to name it.”" }
+      ],
+      next: "c9b"
+    },
+    c9b: {
+      chapter: "Chapter Nine — The Breaking of the Bells",
+      passages: [
+        { k: "d", who: "The First", x: "“You would give me a name? I have had many. Monster. God. King. None were mine.”" },
+        { k: "n", x: "Mara opened the chronicle and found her mother’s final page.", cond: { op: "has", item: "Grey-Leather Chronicle" } },
+        { k: "d", who: "Elira Venn", x: "“Ask it what it was called before Veyr learned to fear it.”", cond: { op: "has", item: "Grey-Leather Chronicle" } },
+        { k: "n", x: "Without the chronicle, Mara had only the token and the First’s own words.", cond: { op: "nhas", item: "Grey-Leather Chronicle" } },
+        { k: "d", who: "Mara", x: "“What were you called before Veyr learned to fear you?”", cond: { op: "nhas", item: "Grey-Leather Chronicle" } }
+      ],
+      next: "c9c"
+    },
+    c9c: {
+      chapter: "Chapter Nine — The Breaking of the Bells",
+      passages: [
+        { k: "d", who: "The First", x: "“I was called Vael. Before your houses built their thrones.”" },
+        { k: "n", x: "The name settled into the ash like a key entering a lock. Above, three more bells broke." },
+        { k: "d", who: "Sister Ilsa", x: "“The tenth bell must be rung before the seventh falls!”" }
+      ],
+      next: "c9d"
+    },
+    c9d: {
+      chapter: "Chapter Nine — The Breaking of the Bells",
+      passages: [
+        { k: "n", x: "Ilsa drove the bell-rope into the ash. Oren marked the circle with his blood. Elira placed the token at its centre." },
+        { k: "n", x: "Halvek set the royal seal beside it.", cond: { op: "susp_lt", value: 3 } },
+        { k: "n", x: "Halvek’s guards raised their weapons.", cond: { op: "susp_ge", value: 3 } },
+        { k: "d", who: "Elira Venn", x: "“Then stop me properly this time, Halvek. Or help me.”", cond: { op: "susp_ge", value: 3 } },
+        { k: "n", x: "The ash trembled. The sixth bell broke." }
+      ],
+      next: "c10a"
+    },
+    c10a: {
+      chapter: "Chapter Ten — The Tenth Bell",
+      passages: [
+        { k: "t", x: "Chapter Ten\nThe Tenth Bell" },
+        { k: "n", x: "The ash-bell stood complete: translucent, soundless, waiting." },
+        { k: "d", who: "The First", x: "“Ring it, Mara Venn. Or bury me again.”" }
+      ],
+      choices: [
+        { x: "Follow the sound beneath the ash.", next: "c11a", hint: "The story continues.", fx: [["flag", "beganChapterEleven"]] },
+        { x: "Ring the tenth bell.", next: "endTenth", hint: "End the lie.", fx: [["flag", "rangTenth"]] },
+        { x: "Seal the Door of Ash forever.", next: "endSeal", hint: "Preserve the kingdom.", fx: [["flag", "sealedDoor"]] },
+        { x: "Burn the chronicle and walk away.", next: "endAsh", hint: "Abandon Veyr’s truth.", fx: [["lose", "Grey-Leather Chronicle"], ["flag", "burnedChronicle"]] },
+        { x: "Give the crown token to Elira.", next: "endMother", hint: "Return the choice to your mother.", fx: [["lose", "Blackened Wooden Token"], ["flag", "gaveTokenToElira"]] }
+      ]
+    },
+    c11a: {
+      chapter: "Chapter Eleven — The Ash Between",
+      passages: [
+        { k: "t", x: "Chapter Eleven\nThe Ash Between" },
+        { k: "n", x: "Mara did not ring the bell. Instead, she knelt and placed her ear to the floor." },
+        { k: "d", who: "The First", x: "“You hear it, don’t you? The story beneath the story.”" },
+        { k: "n", x: "Far below the tomb, a second bell began to toll — deeper, older, and wrong." },
+        { k: "d", who: "Mara", x: "“Then we go down.”" }
+      ],
+      choices: [
+        { x: "Descend toward the deeper bell.", next: "c12a", hint: "Enter the dark.", fx: [["flag", "enteredTheDeep"]] }
+      ]
+    },
+    c12a: {
+      chapter: "Chapter Twelve — The Bellkeeper’s Trial",
+      passages: [
+        { k: "t", x: "Chapter Twelve\nThe Bellkeeper’s Trial" },
+        { k: "n", x: "At the bottom of the stairs stood a figure in rusted bell-metal, holding a cracked iron bell." },
+        { k: "d", who: "The Bellkeeper", x: "“Only a true Keeper may pass. Roll the bell-die, child of ash.”" },
+        { k: "n", x: "The Bellkeeper raises the die. Roll to determine your move." }
+      ],
+      choices: [
+        { x: "Roll the bell-die.", next: "c12roll", hint: "Test your fate.", fx: [["flag", "rolledBellDie"]] }
+      ]
+    },
+    c12roll: {
+      chapter: "Chapter Twelve — The Bellkeeper’s Trial",
+      passages: [
+        { k: "n", x: "The die strikes the stone, spins, and settles." },
+        { k: "n", x: "The Bellkeeper watches in silence." }
+      ],
+      choices: [
+        { x: "Face the result.", next: "c12result", hint: "Continue.", fx: [["flag", "bellTrialComplete"]] }
+      ]
+    },
+    c12result: {
+      chapter: "Chapter Twelve — The Bellkeeper’s Trial",
+      passages: [
+        { k: "n", x: "The Bellkeeper lowers the cracked bell. The tunnel exhales, and the way forward opens." },
+        { k: "d", who: "The Bellkeeper", x: "“The die has spoken. Continue, Keeper.”" },
+        { k: "n", x: "Beyond the trial, the ash begins to glow faintly red — the deep bell’s light." }
+      ],
+      choices: [
+        { x: "Step into the red glow.", next: "c13a", hint: "The next chapter.", fx: [["flag", "enteredRedGlow"]] }
+      ]
+    },
+    c13a: {
+      chapter: "Chapter Thirteen — The Red Bell",
+      passages: [
+        { k: "t", x: "Chapter Thirteen\nThe Red Bell" },
+        { k: "n", x: "The deeper tunnels pulse with red light. The second bell waits." }
+      ],
+      choices: [
+        { x: "Continue.", next: "c13a", hint: "To be continued.", fx: [] }
+      ]
+    },
+    endTenth: {
+      chapter: "Chapter Ten — The Tenth Bell",
+      passages: [
+        { k: "n", x: "Mara struck the ash-bell. It rang like a word finally spoken after a thousand years of silence." },
+        { k: "d", who: "Mara", x: "“Vael.”" },
+        { k: "n", x: "The tomb filled with light—not fire, but recognition. The remaining bells rang once, together, then fell silent as mourners." },
+        { k: "n", x: "The seven houses lost their thrones. Veyr woke, grieving and unsteady, into a history it had never been allowed to know." },
+        { k: "n", x: "Mara became the first Archivist of the Truth." },
+        { k: "d", who: "The Ashen Chronicle", x: "“The first king was a lie. The First was named Vael. And the child of ash chose to remember.”" },
+        { k: "t", x: "The End" }
+      ],
+      next: "title",
+      ending: true
+    },
+    endSeal: {
+      chapter: "Chapter Ten — The Tenth Bell",
+      passages: [
+        { k: "n", x: "Mara pressed her hand to the Door of Ash and spoke the Keeper’s word." },
+        { k: "n", x: "The ash-bell dissolved. The tunnels closed. The First screamed in the long, patient anger of something being forgotten again." },
+        { k: "n", x: "Veyr survived. The houses kept their thrones. Mara became Keeper of Vault Nine." },
+        { k: "n", x: "But every night, she placed her hand against the floor and listened." },
+        { k: "d", who: "The Ashen Chronicle", x: "“Beneath the palace, something patient waited for the next child to ask why the bells had stopped.”" },
+        { k: "t", x: "The End" }
+      ],
+      next: "title",
+      ending: true
+    },
+    endAsh: {
+      chapter: "Chapter Ten — The Tenth Bell",
+      passages: [
+        { k: "n", x: "Mara fed the chronicle to the tomb’s cold fire. The pages burned green, then blue, leaving only rain and smoke." },
+        { k: "d", who: "The First", x: "“You choose the story. As they did.”" },
+        { k: "n", x: "Mara left Veyr before sunrise, changed her name, and never touched a bell again." },
+        { k: "n", x: "Yet some nights, in strange cities, she heard a child singing—and could not stop herself from listening." },
+        { k: "t", x: "The End" }
+      ],
+      next: "title",
+      ending: true
+    },
+    endMother: {
+      chapter: "Chapter Ten — The Tenth Bell",
+      passages: [
+        { k: "n", x: "Mara placed the token in Elira’s hand." },
+        { k: "d", who: "Mara", x: "“You waited twenty years to make this choice. I will not take it from you.”" },
+        { k: "n", x: "Elira wept, then spoke the First’s true name into the ash." },
+        { k: "d", who: "Elira Venn", x: "“Vael.”" },
+        { k: "n", x: "The tomb exhaled. The binding changed—not broken, but rewritten: no longer a prison built on a lie, but a vigil kept by choice." },
+        { k: "n", x: "Mother and daughter climbed toward the light together." },
+        { k: "t", x: "The End" }
+      ],
+      next: "title",
+      ending: true
+    }
+  }
+};
 
+const DEFAULT_STATE = () => ({
+  scene: STORY.start,
+  trustOren: 0,
+  suspicion: 0,
+  flags: {},
+  inventory: [],
+  visited: []
+});
+
+function condOk(s, c) {
+  if (!c) return true;
+  if (c.op === "has") return s.inventory.includes(c.item);
+  if (c.op === "nhas") return !s.inventory.includes(c.item);
+  if (c.op === "susp_lt") return s.suspicion < c.value;
+  if (c.op === "susp_ge") return s.suspicion >= c.value;
+  return true;
+}
+
+function applyFx(s, fx) {
+  if (!fx) return;
+  fx.forEach(([op, val]) => {
+    if (op === "gain" && !s.inventory.includes(val)) s.inventory.push(val);
+    if (op === "lose") s.inventory = s.inventory.filter(i => i !== val);
+    if (op === "trust") s.trustOren += val;
+    if (op === "susp") s.suspicion += val;
+    if (op === "flag") s.flags[val] = true;
+  });
+}
+
+let state = DEFAULT_STATE();
+
+function showTitle() {
+  document.getElementById("app").innerHTML = `
+    <div class="title-screen">
+      <h1>The Ashen Crown</h1>
+      <p class="subtitle">A dark fantasy of bells, ash, and buried truth</p>
+      <button id="beginBtn">Begin</button>
+    </div>`;
+  document.getElementById("beginBtn").onclick = () => {
+    state = DEFAULT_STATE();
+    render();
+  };
+}
+
+function render() {
+  const scene = STORY.scenes[state.scene];
+  if (!scene) { showTitle(); return; }
+
+  const passages = (scene.passages || [])
+    .filter(p => condOk(state, p.cond))
+    .map(p => {
+      if (p.k === "t") return `<h2 class="passage-title">${p.x.replace(/\n/g, "<br>")}</h2>`;
+      if (p.k === "d") return `<p class="dialogue"><span class="speaker">${p.who}:</span> ${p.x}</p>`;
+      return `<p class="narration">${p.x}</p>`;
+    })
+    .join("");
+
+  const choices = (scene.choices || [])
+    .filter(c => condOk(state, c.cond))
+    .map((c, i) => `<button class="choice" data-i="${i}">${c.x}<span class="hint">${c.hint || ""}</span></button>`)
+    .join("");
+
+  document.getElementById("app").innerHTML = `
+    <div class="game-screen">
+      <div class="status">
+        <span>Trust in Oren: ${state.trustOren}</span>
+        <span>Suspicion: ${state.suspicion}</span>
+      </div>
+      ${passages}
+      <div class="choices">${choices}</div>
+    </div>`;
+
+  document.querySelectorAll(".choice").forEach(btn => {
+    btn.onclick = () => {
+      const choice = scene.choices[parseInt(btn.dataset.i, 10)];
+      applyFx(state, choice.fx);
+      if (choice.next === "title" || scene.ending) {
+        showTitle();
+        return;
+      }
+      state.scene = choice.next;
+      render();
+    };
+  });
+}
+
+document.addEventListener("DOMContentLoaded", showTitle);
 "c12a": {"chapter": "Chapter Twelve — The Bellkeeper’s Trial", "passages": [{"k": "t", "x": "Chapter Twelve\nThe Bellkeeper’s Trial"}, {"k": "n", "x": "At the bottom of the stairs stood a figure in rusted bell-metal, holding a cracked iron bell."}, {"k": "d", "who": "The Bellkeeper", "x": "“Only a true Keeper may pass. Roll the bell-die, child of ash.”"}, {"k": "n", "x": "The Bellkeeper raises the die. Roll to determine your move."}], "choices": [{"x": "Roll the bell-die.", "next": "c12roll", "hint": "Test your fate.", "fx": [["flag", "rolledBellDie"]]}]},"c12roll": {"chapter": "Chapter Twelve — The Bellkeeper’s Trial", "passages": [{"k": "n", "x": "The die strikes the stone, spins, and settles."}, {"k": "n", "x": "The Bellkeeper watches in silence."}], "choices": [{"x": "Face the result.", "next": "c12result", "hint": "Continue.", "fx": [["flag", "bellTrialComplete"]]}]},"c12result": {"chapter": "Chapter Twelve — The Bellkeeper’s Trial", "passages": [{"k": "n", "x": "The Bellkeeper lowers the cracked bell. The tunnel exhales, and the way forward opens."}, {"k": "d", "who": "The Bellkeeper", "x": "“The die has spoken. Continue, Keeper.”"}, {"k": "n", "x": "Beyond the trial, the ash begins to glow faintly red — the deep bell’s light."}], "choices": [{"x": "Step into the red glow.", "next": "c13a", "hint": "The next chapter.", "fx": [["flag", "enteredRedGlow"]]}]},"c13a": {"chapter": "Chapter Thirteen — The Red Bell", "passages": [{"k": "t", "x": "Chapter Thirteen\nThe Red Bell"}, {"k": "n", "x": "The deeper tunnels pulse with red light. The second bell waits."}], "choices": [{"x": "Continue.", "next": "c13a", "hint": "To be continued.", "fx": []}]},"endTenth": {"chapter": "Chapter Ten — The Tenth Bell", "passages": [{"k": "n", "x": "Mara struck the ash-bell. It rang like a word finally spoken after a thousand years of silence."}, {"k": "d", "who": "Mara", "x": "“Vael.”"}, {"k": "n", "x": "The tomb filled with light—not fire, but recognition. The remaining bells rang once, together, then fell silent as mourners."}, {"k": "n", "x": "The seven houses lost their thrones. Veyr woke, grieving and unsteady, into a history it had never been allowed to know."}, {"k": "n", "x": "Mara became the first Archivist of the Truth."}, {"k": "d", "who": "The Ashen Chronicle", "x": "“The first king was a lie. The First was named Vael. And the child of ash chose to remember.”"}, {"k": "t", "x": "The End"}], "next": "title", "ending": true}, "endSeal": {"chapter": "Chapter Ten — The Tenth Bell", "passages": [{"k": "n", "x": "Mara pressed her hand to the Door of Ash and spoke the Keeper’s word."}, {"k": "n", "x": "The ash-bell dissolved. The tunnels closed. The First screamed in the long, patient anger of something being forgotten again."}, {"k": "n", "x": "Veyr survived. The houses kept their thrones. Mara became Keeper of Vault Nine."}, {"k": "n", "x": "But every night, she placed her hand against the floor and listened."}, {"k": "d", "who": "The Ashen Chronicle", "x": "“Beneath the palace, something patient waited for the next child to ask why the bells had stopped.”"}, {"k": "t", "x": "The End"}], "next": "title", "ending": true}, "endAsh": {"chapter": "Chapter Ten — The Tenth Bell", "passages": [{"k": "n", "x": "Mara fed the chronicle to the tomb’s cold fire. The pages burned green, then blue, leaving only rain and smoke."}, {"k": "d", "who": "The First", "x": "“You choose the story. As they did.”"}, {"k": "n", "x": "Mara left Veyr before sunrise, changed her name, and never touched a bell again."}, {"k": "n", "x": "Yet some nights, in strange cities, she heard a child singing—and could not stop herself from listening."}, {"k": "t", "x": "The End"}], "next": "title", "ending": true}, "endMother": {"chapter": "Chapter Ten — The Tenth Bell", "passages": [{"k": "n", "x": "Mara placed the token in Elira’s hand."}, {"k": "d", "who": "Mara", "x": "“You waited twenty years to make this choice. I will not take it from you.”"}, {"k": "n", "x": "Elira wept, then spoke the First’s true name into the ash."}, {"k": "d", "who": "Elira Venn", "x": "“Vael.”"}, {"k": "n", "x": "The tomb exhaled. The binding changed—not broken, but rewritten: no longer a prison built on a lie, but a vigil kept by choice."}, {"k": "n", "x": "Mother and daughter climbed toward the light together."}, {"k": "t", "x": "The End"}], "next": "title", "ending": true}}};
 const DEFAULT_STATE=()=>({scene:STORY.start,trustOren:0,suspicion:0,flags:{},inventory:[],visited:[]});
 function condOk(s,c){if(!c)return true;if(c.op==='has')return s.inventory.includes(c.item);if(c.op==='nhas')return!s.inventory.includes(c.item);if(c.op==='susp_lt')return s.suspicion<c.value;if(c.op==='susp_ge')return s.suspicion>=c.value;return true}
